@@ -1,0 +1,47 @@
+# Maven
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+
+# Gradle
+/build/
+.gradle/
+**/out/
+
+
+# IntelliJ IDEA
+*.iml
+.idea/
+
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+
+# VS Code
+.vscode/
+
+
+# Logs
+logs/
+*.log
+
+
+# Spring Boot specific
+*.jar
+*.war
+*.zip
+
+
+# spring-core specific
+spring-core/.settings/
+spring-core/target/
+spring-core/.classpath
+spring-core/.project
+
+
+# OS files
+.DS_Store
+Thumbs.db
