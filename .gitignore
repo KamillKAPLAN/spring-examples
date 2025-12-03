@@ -36,10 +36,10 @@ logs/
 
 
 # spring-core specific
-spring-core/.settings/
-spring-core/target/
-spring-core/.classpath
-spring-core/.project
+/spring-core/.settings/
+/spring-core/target/
+/spring-core/.classpath
+/spring-core/.project
 
 
 # OS files
