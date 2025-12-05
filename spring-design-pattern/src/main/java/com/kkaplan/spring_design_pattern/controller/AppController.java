@@ -9,6 +9,7 @@ import com.kkaplan.spring_design_pattern.builder.Contact;
 import com.kkaplan.spring_design_pattern.builder.Contact.ContactBuilder;
 import com.kkaplan.spring_design_pattern.factory.Pet;
 import com.kkaplan.spring_design_pattern.factory.PetFactory;
+import com.kkaplan.spring_design_pattern.singleton.SingletonA;
 
 @RestController
 public class AppController {
@@ -28,7 +29,7 @@ public class AppController {
 		return pet;
 	}
 	
-	/*  */
+	/* http://localhost:8080/contact?firstName=Kamil&lastName=Kaplan&emailAddress=kamilkaplnn@gmail.com */
 	@PostMapping("/contact")
 	public Contact adoptPet(@RequestParam(required = false) String firstName, 
 							@RequestParam(required = false) String lastName, 
