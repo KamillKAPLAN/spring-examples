@@ -28,7 +28,7 @@ public class AppController {
 		return pet;
 	}
 	
-	/* http://localhost:8080/contact?firstName=Kamil&lastName=Kaplan&emailAddress=kamilkaplnn@gmail.com */
+	/*  */
 	@PostMapping("/contact")
 	public Contact adoptPet(@RequestParam(required = false) String firstName, 
 							@RequestParam(required = false) String lastName, 
