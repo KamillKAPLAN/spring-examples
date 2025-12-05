@@ -35,12 +35,18 @@ logs/
 *.zip
 
 
-# spring-core specific
+# folder specific
 /spring-core/.settings/
 /spring-core/target/
 /spring-core/.classpath
 /spring-core/.project
+/spring-design-pattern/.gitattributes
+/spring-design-pattern/.gitignore
+/spring-design-pattern/.mvn
 
+/spring-design-pattern/.gitattributes
+/spring-design-pattern/.gitignore
+/spring-design-pattern/.mvn
 
 # OS files
 .DS_Store
