@@ -14,6 +14,7 @@ import com.kkaplan.spring_design_pattern.decorator.Pizza;
 import com.kkaplan.spring_design_pattern.decorator.ThickCrustPizza;
 import com.kkaplan.spring_design_pattern.prototype.NotPrototype;
 import com.kkaplan.spring_design_pattern.prototype.Prototype;
+import com.kkaplan.spring_design_pattern.repository.PresidentRespository;
 import com.kkaplan.spring_design_pattern.singleton.SingletonA;
 import com.kkaplan.spring_design_pattern.singleton.SingletonB;
 
@@ -76,7 +77,15 @@ class SpringDesignPatternApplicationTests {
 		
 		Pepperoni doublePepperoniPizza = new Pepperoni(pepperoniPizza);
 		System.out.println(doublePepperoniPizza.getCost());
-		System.out.println(doublePepperoniPizza.getDescription());
-		
+		System.out.println(doublePepperoniPizza.getDescription());	
+	}
+	
+	@Autowired
+	PresidentRespository presidentRespository;
+	
+	@Test
+	public void testRepository() {
+		System.out.println(presidentRespository.findById(1L));
+		System.out.println(presidentRespository.findByEmailAddress("John.Adams@wh.gov"));
 	}
 }
