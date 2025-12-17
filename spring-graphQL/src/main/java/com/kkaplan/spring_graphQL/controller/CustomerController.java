@@ -16,7 +16,8 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
     
-    /* http://localhost:8080/graphiql
+    /* http://localhost:8080/graphql -> POSTMAN
+     * http://localhost:8080/graphiql
      * GraphQL Playground Chrome Extension
      */
 
