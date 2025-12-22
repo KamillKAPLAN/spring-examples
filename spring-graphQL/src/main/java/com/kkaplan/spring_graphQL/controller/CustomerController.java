@@ -19,6 +19,8 @@ public class CustomerController {
     /* http://localhost:8080/graphql -> POSTMAN
      * http://localhost:8080/graphiql
      * GraphQL Playground Chrome Extension
+     * 
+     * Ex_Files_Spring_with_GraphQL > CH02 > 02_08
      */
 
     @QueryMapping
