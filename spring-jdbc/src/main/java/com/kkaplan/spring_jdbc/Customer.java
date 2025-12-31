@@ -2,9 +2,11 @@ package com.kkaplan.spring_jdbc;
 
 import com.kkaplan.spring_jdbc.util.DataTransferObject;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class Customer implements DataTransferObject {
 
 	private long id;
@@ -16,10 +18,4 @@ public class Customer implements DataTransferObject {
     private String city;
     private String state;
     private String zipCode;
-    
-	@Override
-	public long getId() {
-		return 0;
-	}
-
 }
