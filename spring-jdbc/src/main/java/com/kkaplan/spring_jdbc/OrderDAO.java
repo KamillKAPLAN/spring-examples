@@ -36,6 +36,8 @@ public class OrderDAO extends DataAccessObject<Order> {
 			"JOIN product p on ol.product_id = p.product_id " +
 			"WHERE o.order_id = ?";
 
+	private static final String GET_FOR_CUST = "SELECT * FROM get_orders_by_customer(?)";
+	
 	public OrderDAO(Connection connection) {
 		super(connection);
 	}
@@ -62,6 +64,7 @@ public class OrderDAO extends DataAccessObject<Order> {
 							.salespersonLastName(resultSet.getString(9))
 							.salespersonEmail(resultSet.getString(10))
 							.build();
+					orderId = order.getId();
 				}
 				OrderLine orderLine = OrderLine.builder()
 						.quantity(resultSet.getInt(11))
@@ -104,5 +107,49 @@ public class OrderDAO extends DataAccessObject<Order> {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public List<Order> getOrdersForCustomer(long customerId){
+		List<Order> orders = new ArrayList<>();
+		try (PreparedStatement statement = this.connection.prepareStatement(GET_FOR_CUST);) {
+			statement.setLong(1, customerId);
+			ResultSet resultSet = statement.executeQuery();
+			long orderId = 0;
+			Order order = null;
+			while (resultSet.next()) {
+				long localOrderId = resultSet.getLong(4);
+				if (orderId != localOrderId) {
+					List<OrderLine> orderLines = new ArrayList<>();
+					order = Order.builder()
+							.id(localOrderId)
+							.customerFirstName(resultSet.getString(1))
+							.customerLastLane(resultSet.getString(2))
+							.customerEmail(resultSet.getString(3))
+							.creationDate(new Date(resultSet.getDate(5).getTime()))
+							.totalDue(resultSet.getBigDecimal(6))
+							.status(resultSet.getString(7))
+							.salespersonFirstName(resultSet.getString(8))
+							.salespersonLastName(resultSet.getString(9))
+							.salespersonEmail(resultSet.getString(10))
+							.orderLines(orderLines)
+							.build();
+					orderId = localOrderId;
+					orders.add(order);
+				}
+				OrderLine orderLine = OrderLine.builder()
+						.quantity(resultSet.getInt(11))
+						.productCode(resultSet.getString(12))
+						.productName(resultSet.getString(13))
+						.productSize(resultSet.getInt(14))
+						.productVariety(resultSet.getString(15))
+						.productPrice(resultSet.getBigDecimal(16))
+						.build();
+				order.getOrderLines().add(orderLine);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
 
+		return orders;
+	}
 }

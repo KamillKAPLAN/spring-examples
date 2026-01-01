@@ -41,3 +41,6 @@ psql client is installed
 3. `psql -h localhost -p 5433 -U postgres -d hplussport -f product.sql`
 4. `psql -h localhost -p 5433 -U postgres -d hplussport -f salesperson.sql`
 5. `psql -h localhost -p 5433 -U postgres -d hplussport -f orders.sql`
+
+### Creating stored procedure
+1. `psql -h localhost -p 5433 -U postgres -d hplussport -f stored_proc.sql`

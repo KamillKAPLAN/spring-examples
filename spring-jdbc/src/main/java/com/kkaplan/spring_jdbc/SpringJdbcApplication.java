@@ -2,6 +2,7 @@ package com.kkaplan.spring_jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -55,8 +56,10 @@ public class SpringJdbcApplication {
             System.out.println(dbCustomer);
             customerDAO.delete(dbCustomer.getId());*/
 			OrderDAO orderDAO = new OrderDAO(connection);
-			Order order = orderDAO.findById(1086);
-			System.out.println(order);
+			/*Order order = orderDAO.findById(1086);
+			System.out.println(order);*/
+			List<Order> orders = orderDAO.getOrdersForCustomer(789);
+			orders.forEach(System.out::println);
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
