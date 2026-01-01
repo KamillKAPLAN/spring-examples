@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kkaplan.spring_jdbc.util.DataAccessObject;
@@ -12,11 +13,18 @@ public class CustomerDAO extends DataAccessObject<Customer> {
 
 	private static final String INSERT = "INSERT INTO customer (first_name, last_name, email, phone, address, city, state, zipcode) " + 
 										 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	
 	private static final String GET_ONE = "SELECT customer_id, first_name, last_name, email, phone, address, city, state, zipcode " + 
 										  "FROM customer WHERE customer_id = ?";
+	
 	private static final String UPDATE = "UPDATE customer SET first_name = ?, last_name=?, email = ?, phone = ?, address = ?, city = ?, state = ?, zipcode = ? " + 
 										 "WHERE customer_id = ?";
+	
 	private static final String DELETE = "DELETE FROM customer WHERE customer_id = ?";
+	
+	private static final String GET_ALL_LMT = "SELECT customer_id, first_name, last_name, email, phone, address, city, state, zipcode " +
+            								  "FROM customer ORDER BY last_name, first_name LIMIT ?";
+
 	
 	public CustomerDAO(Connection connection) {
 		super(connection);
@@ -94,6 +102,34 @@ public class CustomerDAO extends DataAccessObject<Customer> {
 			throw new RuntimeException(ex);
 		}
 	}
+	
+	public List<Customer> findAllSorted(int limit) {
+		List<Customer> customers = new ArrayList<>();
+		try (PreparedStatement statement = this.connection.prepareStatement(GET_ALL_LMT);) {
+			statement.setLong(1, limit);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				Customer customer = Customer.builder()
+						.id(rs.getLong("customer_id"))
+						.firstName(rs.getString("first_name"))
+						.lastName(rs.getString("last_name"))
+						.email(rs.getString("email"))
+						.phone(rs.getString("phone"))
+						.address(rs.getString("address"))
+						.city(rs.getString("city"))
+						.state(rs.getString("state"))
+						.zipCode(rs.getString("zipcode"))
+						.build();
+				customers.add(customer);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+		
+		return customers;
+	}
+
 
 	@Override
 	public void delete(long id) {

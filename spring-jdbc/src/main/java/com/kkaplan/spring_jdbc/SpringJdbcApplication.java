@@ -58,8 +58,8 @@ public class SpringJdbcApplication {
 			OrderDAO orderDAO = new OrderDAO(connection);
 			/*Order order = orderDAO.findById(1086);
 			System.out.println(order);*/
-			List<Order> orders = orderDAO.getOrdersForCustomer(789);
-			orders.forEach(System.out::println);
+			/*orderDAO.getOrdersForCustomer(789).forEach(System.out::println); */
+			customerDAO.findAllSorted(20).forEach(System.out::println);
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
