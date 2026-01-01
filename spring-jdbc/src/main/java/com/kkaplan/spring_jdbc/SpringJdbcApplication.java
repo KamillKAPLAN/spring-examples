@@ -36,7 +36,7 @@ public class SpringJdbcApplication {
 			customer.setEmail("kamilkaplnn@gmail.com");
 			customer = customerDAO.update(customer);
 			System.out.println(customer.getFirstName() + " " + customer.getLastName() + " " + customer.getEmail());*/
-			Customer customer = Customer.builder()
+			/*Customer customer = Customer.builder()
 					.firstName("John")
 					.lastName("Adams")
 					.email("jadams.wh.gov")
@@ -53,7 +53,10 @@ public class SpringJdbcApplication {
             dbCustomer.setEmail("john.adams@wh.gov");
             dbCustomer = customerDAO.update(dbCustomer);
             System.out.println(dbCustomer);
-            customerDAO.delete(dbCustomer.getId());
+            customerDAO.delete(dbCustomer.getId());*/
+			OrderDAO orderDAO = new OrderDAO(connection);
+			Order order = orderDAO.findById(1086);
+			System.out.println(order);
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
