@@ -25,6 +25,8 @@ public class CustomerDAO extends DataAccessObject<Customer> {
 	private static final String GET_ALL_LMT = "SELECT customer_id, first_name, last_name, email, phone, address, city, state, zipcode " +
             								  "FROM customer ORDER BY last_name, first_name LIMIT ?";
 
+	private static final String GET_ALL_PAGED = "SELECT customer_id, first_name, last_name, email, phone, address, city, state, zipcode " +
+			  "FROM customer ORDER BY last_name, first_name LIMIT ? OFFSET ?";
 	
 	public CustomerDAO(Connection connection) {
 		super(connection);
@@ -106,7 +108,7 @@ public class CustomerDAO extends DataAccessObject<Customer> {
 	public List<Customer> findAllSorted(int limit) {
 		List<Customer> customers = new ArrayList<>();
 		try (PreparedStatement statement = this.connection.prepareStatement(GET_ALL_LMT);) {
-			statement.setLong(1, limit);
+			statement.setInt(1, limit);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				Customer customer = Customer.builder()
@@ -126,7 +128,37 @@ public class CustomerDAO extends DataAccessObject<Customer> {
 			ex.printStackTrace();
 			throw new RuntimeException(ex);
 		}
-		
+		return customers;
+	}
+	
+	public List<Customer> findAllPaged(int limit, int pageNumber) {
+		List<Customer> customers = new ArrayList<>();
+		int offset = ((pageNumber - 1) * limit);
+		try (PreparedStatement statement = this.connection.prepareStatement(GET_ALL_PAGED);) {
+			if (limit < 1) {
+				limit = 10;
+			}
+			statement.setInt(1, limit);
+			statement.setInt(2, offset);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				Customer customer = Customer.builder()
+						.id(rs.getLong("customer_id"))
+						.firstName(rs.getString("first_name"))
+						.lastName(rs.getString("last_name"))
+						.email(rs.getString("email"))
+						.phone(rs.getString("phone"))
+						.address(rs.getString("address"))
+						.city(rs.getString("city"))
+						.state(rs.getString("state"))
+						.zipCode(rs.getString("zipcode"))
+						.build();
+				customers.add(customer);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
 		return customers;
 	}
 
@@ -140,7 +172,6 @@ public class CustomerDAO extends DataAccessObject<Customer> {
 			ex.printStackTrace();
 			throw new RuntimeException(ex);
 		}
-
 	}
 
 }

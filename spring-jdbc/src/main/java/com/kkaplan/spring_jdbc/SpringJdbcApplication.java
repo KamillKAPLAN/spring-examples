@@ -2,6 +2,7 @@ package com.kkaplan.spring_jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.boot.SpringApplication;
@@ -59,7 +60,12 @@ public class SpringJdbcApplication {
 			/*Order order = orderDAO.findById(1086);
 			System.out.println(order);*/
 			/*orderDAO.getOrdersForCustomer(789).forEach(System.out::println); */
-			customerDAO.findAllSorted(20).forEach(System.out::println);
+			/*customerDAO.findAllSorted(20).forEach(System.out::println);*/
+			System.out.println("Paged");
+			for (int i = 1; i < 3; i++) {
+				System.out.println("Page number: " + i);
+				customerDAO.findAllPaged(10, i).forEach(System.out::println);
+			}
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
