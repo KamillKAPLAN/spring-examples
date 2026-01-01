@@ -31,11 +31,30 @@ public class SpringJdbcApplication {
 					.state("VA")
 					.zipCode("22121").build();
             customerDAO.create(customer);*/
-			Customer customer = customerDAO.findById(102);
+			/*Customer customer = customerDAO.findById(102);
 			System.out.println(customer.getFirstName() + " " + customer.getLastName() + " " + customer.getEmail());
 			customer.setEmail("kamilkaplnn@gmail.com");
 			customer = customerDAO.update(customer);
-			System.out.println(customer.getFirstName() + " " + customer.getLastName() + " " + customer.getEmail());
+			System.out.println(customer.getFirstName() + " " + customer.getLastName() + " " + customer.getEmail());*/
+			Customer customer = Customer.builder()
+					.firstName("John")
+					.lastName("Adams")
+					.email("jadams.wh.gov")
+					.address("1234 Main St")
+					.city("Arlington")
+					.state("VA")
+					.phone("555) 555-9845")
+					.zipCode("01234")
+					.build();
+            Customer dbCustomer = customerDAO.create(customer);
+            System.out.println(dbCustomer);
+            dbCustomer = customerDAO.findById(dbCustomer.getId());
+            System.out.println(dbCustomer);
+            dbCustomer.setEmail("john.adams@wh.gov");
+            dbCustomer = customerDAO.update(dbCustomer);
+            System.out.println(dbCustomer);
+            customerDAO.delete(dbCustomer.getId());
+			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
