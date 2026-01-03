@@ -12,9 +12,9 @@ public class HomeController {
 	public String displayName(Model model) {
 		return "index";
 	}
-	
+
 	@GetMapping("/getCharacter/{charname}")
-    public String getCharacter(@PathVariable("charname") String charName){
-        return "/characters/"+charName;
-    }
+	public String getCharacter(@PathVariable("charname") String charName) {
+		return "/characters/" + charName;
+	}
 }
