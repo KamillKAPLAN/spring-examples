@@ -9,11 +9,17 @@ psql client is installed
 ## Docker Notes
 * docker images : image list
 * docker image rm <image_name | image_id>
-* docker ps -a  : container list
+* docker ps: Sadece `şu an çalışan` konteynerleri gösterir.
+* docker ps -a: Çalışan, durdurulmuş, hata alıp kapanmış `tüm konteynerleri` gösterir (-a harfi "all" yani "hepsi" anlamına gelir).
 * docker container rm <container_name | container_id>
 * docker rm -f <container_name | container_id> : çalışan bir Docker konteynerini zorla durdurmak ve silmek
 * docker info   : docker çalışıyor mu? 
 * docker volume ls : konteynerlerin geçici doğasına karşı verilerin kalıcı (persistent) olmasını sağlayan bir depolama mekanizmasıdır.
+* docker run : İmajdan bir konteyner yaratır. Yeni bir konteyner oluşturur ve başlatır.
+* docker start <container_id> : Konteyneri başlat
+* docker exec : Zaten `çalışmakta olan` bir konteynerin içine girer. Konteyner durmuşsa bu komut çalışmaz.
+* docker logs <container_id> : Konteynerin neden ayakta kalmadığını anlamak için "ölü" konteynerin fısıltılarını (loglarını) dinlemek
+* docker start -ai <container_id> : Eğer konteyner zaten varsa ve durmuşsa
 
 ## Actions
 
@@ -25,7 +31,8 @@ psql client is installed
 `mkdir -p ~/srv/postgres`
 
 3. Run docker image
-`docker run --rm --name postgres-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -d -v pgdata:/var/lib/postgresql/data -p 5433:5432 postgres:17`
+`docker run --name postgres-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -d -v pgdata:/var/lib/postgresql/data -p 5433:5432 postgres:17`
+`docker exec -it postgres-db psql -U postgres -c "\l"`
 
 ### Stopping PostgreSQL
 `docker stop lil-postgres`
