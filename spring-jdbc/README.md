@@ -15,11 +15,11 @@ psql client is installed
 * docker rm -f <container_name | container_id> : çalışan bir Docker konteynerini zorla durdurmak ve silmek
 * docker info   : docker çalışıyor mu? 
 * docker volume ls : konteynerlerin geçici doğasına karşı verilerin kalıcı (persistent) olmasını sağlayan bir depolama mekanizmasıdır.
-* docker run : İmajdan bir konteyner yaratır. Yeni bir konteyner oluşturur ve başlatır.
-* docker start <container_id> : Konteyneri başlat
+* docker run : İmajdan bir konteyner yaratır. Yeni bir konteyner oluşturur ve başlatır. **docker create** ve **docker start** komutlarının birleşimi olduğunu belirtmek önemlidir.
+* **docker start <container_id>** : Konteyneri başlat
+* Mevcut (daha önce oluşturulmuş veya durdurulmuş) bir konteynerı yeniden başlatmak için kullanılan komut **docker container start** komutudur.
 * docker exec : Zaten `çalışmakta olan` bir konteynerin içine girer. Konteyner durmuşsa bu komut çalışmaz.
 * docker logs <container_id> : Konteynerin neden ayakta kalmadığını anlamak için "ölü" konteynerin fısıltılarını (loglarını) dinlemek
-* docker start -ai <container_id> : Eğer konteyner zaten varsa ve durmuşsa
 
 ## Actions
 
